@@ -4,7 +4,13 @@ Snippets from various projects & frameworks that are worth publishing for quick 
 
 ## Vue
 
+### Components
+
 * **Keyframe** - Keyframing component for simple frame or delay based animations
+
+### Composables
+
+* **useClasses** - Very simple composable, manage element classes through a provided prop
 
 ## Author
 
