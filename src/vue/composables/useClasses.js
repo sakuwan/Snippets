@@ -1,12 +1,13 @@
 import { computed, unref } from 'vue';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useClasses = (prop, fallback = '') => {
+export const useClasses = (prop, extend = '') => {
   const computedClasses = computed(() => {
     const classes = unref(prop);
-    if (classes.length === 0) return fallback;
 
-    return typeof classes === 'string' ? classes : classes.join(' ');
+    return typeof classes === 'string'
+      ? `${classes} ${extend}`.trim()
+      : [...classes, ...extend].join(' ').trim();
   });
 
   return computedClasses;
