@@ -7,6 +7,7 @@ Snippets from various projects & frameworks that are worth publishing for quick 
 ### Components
 
 * **Keyframe** - Keyframing component for simple frame or delay based animations
+* **AspectBox** - Container component for maintaining a provided aspect ratio, using the padding-top trick
 
 ### Composables
 
