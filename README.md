@@ -53,6 +53,13 @@ For example, a configuration that generates flex-basis utility classes with resp
 }
 ```
 
+* **getScrollbarWidth** - Fetches the system scrollbar width, generally used for hiding or customizing the scrollbar. Less useful as the CSS Scrollbar API becomes more normalized, but still useful in some cases.
+
+```js
+// For Windows, expect scrollbarWidth === 17 (px)
+const scrollbarWidth = getScrollbarWidth();
+```
+
 ## Author
 
 * **wan** - *Creator* - [Profile](https://github.com/sakuwan)
