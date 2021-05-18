@@ -60,6 +60,19 @@ For example, a configuration that generates flex-basis utility classes with resp
 const scrollbarWidth = getScrollbarWidth();
 ```
 
+* **preloadImage** - Create and return a promise that resolves when it successfully loads a provided image URL, or rejects on fail. Useful for caching images that might be unable to be preloaded in the standard HTML ways, due to v-if and other conditional rendering.
+
+```js
+const imgsToLoad = ['/img/a.jpg', '/img/b.jpg'];
+Promise.all(imgsToLoad.map((url) => preloadImage(url)))
+  .then((urls) => {
+    // urls: Successfully loaded URLs
+  })
+  .catch((url) => {
+    // url: Failed URL, shortcircuits the promise
+  });
+```
+
 ## Author
 
 * **wan** - *Creator* - [Profile](https://github.com/sakuwan)
