@@ -73,6 +73,34 @@ Promise.all(imgsToLoad.map((url) => preloadImage(url)))
   });
 ```
 
+* **formatYAML** - Format imported YAML strings into more HTML-friendly strings with basic Markdown-style support for styling. Naturally, this should be further sanitized for any actual usage.
+
+```js
+/*
+  testString: |
+    **This is bold**
+    __This is italic__
+    !!This is underlined!!
+    ~~This is striked out~~
+
+    Newlines are replaced with <br>
+    [This is a hyperlink](https://www.github.com/sakuwan)
+*/
+
+const formattedYAML = formatYAML(yaml.testString);
+
+/*
+  formattedYAML:
+    <strong>This is bold</strong><br>
+    <em>This is italic</em><br>
+    <ins>This is underlined</ins><br>
+    <del>This is striked out</del><br>
+    <br>
+    Newlines are replaced with <br><br>
+    <a href="https://www.github.com/sakuwan"><ins>This is a hyperlink</ins></a>
+*/
+```
+
 ## Author
 
 * **wan** - *Creator* - [Profile](https://github.com/sakuwan)
