@@ -60,7 +60,7 @@ For example, a configuration that generates flex-basis utility classes with resp
 const scrollbarWidth = getScrollbarWidth();
 ```
 
-* **preloadImage** - Create and return a promise that resolves when it successfully loads a provided image URL, or rejects on fail. Useful for caching images that might be unable to be preloaded in the standard HTML ways, due to v-if and other conditional rendering.
+* **preloadImage** - Create and return a promise that resolves when it successfully loads a provided image URL, or rejects on fail. Useful for caching images that might be unable to be preloaded in the standard HTML ways, due to v-if and other conditional rendering. The responsive and transformed variants are simply for srcset & preloading functionality.
 
 ```js
 const imgsToLoad = ['/img/a.jpg', '/img/b.jpg'];
