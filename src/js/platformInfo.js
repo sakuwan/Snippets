@@ -26,5 +26,6 @@ export const platformInfo = () => {
     isFirefox: userAgent.match(/firefox/i) !== null,
     isEdge: userAgent.match(/edge/i) !== null,
     isOpera: userAgent.match(/opera/i) !== null,
+    isSafari: userAgent.match(/safari/i) !== null,
   };
 };
