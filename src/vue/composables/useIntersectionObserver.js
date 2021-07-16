@@ -1,9 +1,9 @@
 import { ref, watch, onBeforeUnmount } from 'vue';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useIntersectionObserver = (element, options = {}, onIntersect = null) => {
-  const elementRef = ref(element);
+export const useIntersectionObserver = (options = {}, onIntersect = null) => {
   const isIntersecting = ref(false);
+  const intersectionRef = ref(null);
 
   const observer = new IntersectionObserver((entries) => {
     onIntersect?.(entries, observer);
@@ -12,7 +12,7 @@ export const useIntersectionObserver = (element, options = {}, onIntersect = nul
 
   onBeforeUnmount(() => { observer.disconnect(); });
 
-  watch(elementRef, (newValue, oldValue) => {
+  watch(intersectionRef, (newValue, oldValue) => {
     if (oldValue) {
       observer.unobserve(oldValue);
       isIntersecting.value = false;
@@ -21,5 +21,5 @@ export const useIntersectionObserver = (element, options = {}, onIntersect = nul
     if (newValue) observer.observe(newValue);
   }, { flush: 'post' });
 
-  return { isIntersecting };
+  return { intersectionRef, isIntersecting };
 };
