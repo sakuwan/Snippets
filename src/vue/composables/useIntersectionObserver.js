@@ -12,13 +12,13 @@ export const useIntersectionObserver = (options = {}, onIntersect = null) => {
 
   onBeforeUnmount(() => { observer.disconnect(); });
 
-  watch(intersectionRef, (newValue, oldValue) => {
-    if (oldValue) {
-      observer.unobserve(oldValue);
+  watch(intersectionRef, (now, prev) => {
+    if (prev) {
+      observer.unobserve(prev);
       isIntersecting.value = false;
     }
 
-    if (newValue) observer.observe(newValue);
+    if (now) observer.observe(now);
   }, { flush: 'post' });
 
   return { intersectionRef, isIntersecting };

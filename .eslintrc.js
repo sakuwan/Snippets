@@ -31,5 +31,7 @@ module.exports = {
   rules: {
     'no-unused-vars': [2, { args: 'all', argsIgnorePattern: '^_' }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+
+    'vue/script-setup-uses-vars': 'off',
   },
 };
