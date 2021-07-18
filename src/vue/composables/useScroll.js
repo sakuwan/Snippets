@@ -3,15 +3,12 @@ import { ref, onBeforeUnmount } from 'vue';
 import { useEvent } from './useEvent';
 
 import { isNullish } from '../utils/isNullish';
-import { isFunction } from '../utils/isFunction';
-
-import { throttle } from '../utils/throttle';
-import { debounce } from '../utils/debounce';
 import { passiveSupported } from '../utils/passiveSupported';
+import { wrapEventListener } from '../utils/wrapEventListener';
 
 const defaultOptions = Object.freeze({
   wrapDelay: 20,
-  wrapListener: 'debounce',
+  wrapType: 'debounce',
 
   eventOpts: { ...(passiveSupported() && { passive: true }) },
 });
@@ -24,15 +21,6 @@ const calcScrollOffsetY = ({ scrollTop, scrollHeight, clientHeight }) => (
   scrollTop / Math.max(Number.EPSILON, scrollHeight - clientHeight)
 );
 
-const wrapScrollListener = (scrollFn, { wrapDelay, wrapListener }) => {
-  if (isFunction(wrapListener)) return wrapListener(scrollFn);
-
-  if (wrapListener === 'throttle') return throttle(scrollFn, wrapDelay);
-  if (wrapListener === 'debounce') return debounce(scrollFn, wrapDelay);
-
-  return scrollFn;
-};
-
 // eslint-disable-next-line import/prefer-default-export
 export const useScroll = (element, options = {}, onScroll = null) => {
   const scrollOptions = { ...defaultOptions, ...options };
@@ -44,7 +32,7 @@ export const useScroll = (element, options = {}, onScroll = null) => {
   const scrollXRatio = ref(0);
   const scrollYRatio = ref(0);
 
-  const scrollListener = wrapScrollListener((event) => {
+  const scrollListener = wrapEventListener((event) => {
     onScroll?.(event);
 
     const { target } = event;
