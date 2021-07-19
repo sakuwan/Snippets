@@ -23,7 +23,7 @@ const calcScrollOffsetY = ({ scrollTop, scrollHeight, clientHeight }) => (
 
 // eslint-disable-next-line import/prefer-default-export
 export const useScroll = (element, options = {}, onScroll = null) => {
-  const scrollOptions = { ...defaultOptions, ...options };
+  const { eventOpts, ...wrapperOpts } = { ...defaultOptions, ...options };
 
   const scrollRef = ref(element);
 
@@ -42,11 +42,9 @@ export const useScroll = (element, options = {}, onScroll = null) => {
     scrollLeft.value = target.scrollLeft;
     scrollXRatio.value = calcScrollOffsetX(target);
     scrollYRatio.value = calcScrollOffsetY(target);
-  }, scrollOptions);
+  }, wrapperOpts);
 
-  const stopScroll = useEvent(
-    scrollRef, 'scroll', scrollListener, scrollOptions.eventOpts,
-  );
+  const stopScroll = useEvent(scrollRef, 'scroll', scrollListener, eventOpts);
 
   onBeforeUnmount(() => { stopScroll(); });
 
