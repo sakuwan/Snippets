@@ -26,9 +26,14 @@ export const useViewport = (options = {}, onViewportChange = null) => {
     viewportHeight.value = window.innerHeight;
   }, wrapperOpts);
 
-  const stopResize = useEvent(window, 'resize', resizeListener, eventOpts);
+  const removeHook = useEvent(window, 'resize', resizeListener, eventOpts);
 
-  onBeforeUnmount(() => { stopResize(); });
+  onBeforeUnmount(() => { removeHook(); });
 
-  return { viewportWidth, viewportHeight };
+  return {
+    viewportWidth,
+    viewportHeight,
+
+    removeHook,
+  };
 };

@@ -44,14 +44,16 @@ export const useScroll = (element, options = {}, onScroll = null) => {
     scrollYRatio.value = calcScrollOffsetY(target);
   }, wrapperOpts);
 
-  const stopScroll = useEvent(scrollRef, 'scroll', scrollListener, eventOpts);
+  const removeHook = useEvent(scrollRef, 'scroll', scrollListener, eventOpts);
 
-  onBeforeUnmount(() => { stopScroll(); });
+  onBeforeUnmount(() => { removeHook(); });
 
   return {
     scrollTop,
     scrollLeft,
     scrollXRatio,
     scrollYRatio,
+
+    removeHook,
   };
 };

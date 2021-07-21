@@ -40,9 +40,9 @@ export const useMouse = (element, options = {}, onMouseMove = null) => {
     mouseState.mouseY = event.clientY;
   }, wrapperOpts);
 
-  const stopMouse = useEvent(mouseRef, 'mousemove', mouseListener, eventOpts);
+  const removeHook = useEvent(mouseRef, 'mousemove', mouseListener, eventOpts);
 
-  onBeforeUnmount(() => { stopMouse(); });
+  onBeforeUnmount(() => { removeHook(); });
 
-  return { ...toRefs(mouseState) };
+  return { ...toRefs(mouseState), removeHook };
 };
