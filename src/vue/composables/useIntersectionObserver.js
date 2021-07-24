@@ -10,9 +10,7 @@ export const useIntersectionObserver = (options = {}, onIntersect = null) => {
     isIntersecting.value = !!entries.find((entry) => entry.isIntersecting);
   }, options);
 
-  onBeforeUnmount(() => { observer.disconnect(); });
-
-  watch(intersectionRef, (now, prev) => {
+  const removeWatcher = watch(intersectionRef, (now, prev) => {
     if (prev) {
       observer.unobserve(prev);
       isIntersecting.value = false;
@@ -21,5 +19,18 @@ export const useIntersectionObserver = (options = {}, onIntersect = null) => {
     if (now) observer.observe(now);
   }, { flush: 'post' });
 
-  return { intersectionRef, isIntersecting };
+  const removeHook = () => {
+    removeWatcher();
+    observer.disconnect();
+  };
+
+  onBeforeUnmount(() => { removeHook(); });
+
+  return {
+    intersectionRef,
+
+    isIntersecting,
+
+    removeHook,
+  };
 };

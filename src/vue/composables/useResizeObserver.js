@@ -28,9 +28,7 @@ export const useResizeObserver = (options = {}, onResize = null) => {
     contentBoxSize.value = contentBoxFragment;
   });
 
-  onBeforeUnmount(() => { observer.disconnect(); });
-
-  watch(resizeRef, (now, prev) => {
+  const removeWatcher = watch(resizeRef, (now, prev) => {
     if (prev) {
       observer.unobserve(prev);
 
@@ -42,11 +40,20 @@ export const useResizeObserver = (options = {}, onResize = null) => {
     if (now) observer.observe(now, options);
   }, { flush: 'post' });
 
+  const removeHook = () => {
+    removeWatcher();
+    observer.disconnect();
+  };
+
+  onBeforeUnmount(() => { removeHook(); });
+
   return {
     resizeRef,
 
     contentRect: readonly(contentRect),
     borderBoxSize: readonly(borderBoxSize),
     contentBoxSize: readonly(contentBoxSize),
+
+    removeHook,
   };
 };
