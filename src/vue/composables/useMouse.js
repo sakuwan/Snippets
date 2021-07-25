@@ -19,7 +19,7 @@ const defaultOptions = Object.freeze({
 });
 
 // eslint-disable-next-line import/prefer-default-export
-export const useMouse = (element, options = {}, onMouseMove = null) => {
+export const useMouse = (element, onMouseMove = null, options = {}) => {
   const { eventOpts, ...wrapperOpts } = { ...defaultOptions, ...options };
 
   const mouseRef = ref(element);

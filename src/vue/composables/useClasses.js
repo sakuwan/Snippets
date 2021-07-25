@@ -1,9 +1,9 @@
 import { computed, unref } from 'vue';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useClasses = (prop, extend = '') => {
+export const useClasses = (property, extend = '') => {
   const computedClasses = computed(() => {
-    const classes = unref(prop);
+    const classes = unref(property);
 
     return typeof classes === 'string'
       ? `${classes} ${extend}`.trim()

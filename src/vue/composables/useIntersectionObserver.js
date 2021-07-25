@@ -1,7 +1,7 @@
 import { ref, watch, onBeforeUnmount } from 'vue';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useIntersectionObserver = (options = {}, onIntersect = null) => {
+export const useIntersectionObserver = (onIntersect = null, options = {}) => {
   const isIntersecting = ref(false);
   const intersectionRef = ref(null);
 

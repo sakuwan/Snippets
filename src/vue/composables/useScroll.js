@@ -1,4 +1,10 @@
-import { ref, onBeforeUnmount } from 'vue';
+import {
+  ref,
+  reactive,
+  toRefs,
+
+  onBeforeUnmount,
+} from 'vue';
 
 import { useEvent } from './useEvent';
 
@@ -22,15 +28,17 @@ const calcScrollOffsetY = ({ scrollTop, scrollHeight, clientHeight }) => (
 );
 
 // eslint-disable-next-line import/prefer-default-export
-export const useScroll = (element, options = {}, onScroll = null) => {
+export const useScroll = (element, onScroll = null, options = {}) => {
   const { eventOpts, ...wrapperOpts } = { ...defaultOptions, ...options };
 
   const scrollRef = ref(element);
+  const scrollState = reactive({
+    scrollTop: 0,
+    scrollLeft: 0,
 
-  const scrollTop = ref(0);
-  const scrollLeft = ref(0);
-  const scrollXRatio = ref(0);
-  const scrollYRatio = ref(0);
+    scrollXRatio: 0,
+    scrollYRatio: 0,
+  });
 
   const scrollListener = wrapEventListener((event) => {
     onScroll?.(event);
@@ -38,22 +46,15 @@ export const useScroll = (element, options = {}, onScroll = null) => {
     const { target } = event;
     if (isNullish(target)) return;
 
-    scrollTop.value = target.scrollTop;
-    scrollLeft.value = target.scrollLeft;
-    scrollXRatio.value = calcScrollOffsetX(target);
-    scrollYRatio.value = calcScrollOffsetY(target);
+    scrollState.scrollTop = target.scrollTop;
+    scrollState.scrollLeft = target.scrollLeft;
+    scrollState.scrollXRatio = calcScrollOffsetX(target);
+    scrollState.scrollYRatio = calcScrollOffsetY(target);
   }, wrapperOpts);
 
   const removeHook = useEvent(scrollRef, 'scroll', scrollListener, eventOpts);
 
   onBeforeUnmount(() => { removeHook(); });
 
-  return {
-    scrollTop,
-    scrollLeft,
-    scrollXRatio,
-    scrollYRatio,
-
-    removeHook,
-  };
+  return { ...toRefs(scrollState), removeHook };
 };

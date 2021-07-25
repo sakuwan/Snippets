@@ -1,7 +1,7 @@
 import { ref, watch, onBeforeUnmount } from 'vue';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useMutationObserver = (element, options = {}, onMutation = null) => {
+export const useMutationObserver = (element, onMutation = null, options = {}) => {
   const mutationRef = ref(element);
 
   const observer = new MutationObserver((mutations) => {

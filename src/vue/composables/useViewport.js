@@ -13,7 +13,7 @@ const defaultOptions = Object.freeze({
 });
 
 // eslint-disable-next-line import/prefer-default-export
-export const useViewport = (options = {}, onViewportChange = null) => {
+export const useViewport = (onViewportChange = null, options = {}) => {
   const { eventOpts, ...wrapperOpts } = { ...defaultOptions, ...options };
 
   const viewportWidth = ref(window.innerWidth);

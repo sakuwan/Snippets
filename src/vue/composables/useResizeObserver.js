@@ -7,7 +7,7 @@ import {
 } from 'vue';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useResizeObserver = (options = {}, onResize = null) => {
+export const useResizeObserver = (onResize = null, options = {}) => {
   const resizeRef = ref(null);
 
   const contentRect = ref(null);
