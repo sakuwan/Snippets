@@ -15,6 +15,8 @@ import {
   getAvailablePointerEvents,
 } from '../utils/pointerHelpers';
 
+import { passiveEventOpts } from '../utils/passiveSupported';
+
 // eslint-disable-next-line import/prefer-default-export
 export const useSwipe = (element, options = {}) => {
   const {
@@ -112,8 +114,8 @@ export const useSwipe = (element, options = {}) => {
   }) => [
     ...acc,
 
-    useEvent(swipeRef, start, swipeStartHandler),
-    useEvent(swipeRef, move, swipeMoveHandler),
+    useEvent(swipeRef, start, swipeStartHandler, passiveEventOpts()),
+    useEvent(swipeRef, move, swipeMoveHandler, passiveEventOpts()),
     useEvent(swipeRef, end, swipeEndHandler),
     ...(cancel ? [useEvent(swipeRef, cancel, swipeCancelHandler)] : []),
   ];
