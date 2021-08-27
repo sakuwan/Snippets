@@ -1,69 +1,50 @@
-<template>
-  <div :class="boxClasses" :style="aspectRatio">
-    <div :class="contentClasses">
-      <slot></slot>
-    </div>
-  </div>
+<template lang="pug">
+
+div(:style="aspectStyle" :class="[wrapperClasses, 'aspect-box']")
+  div(:class="[contentClasses, 'aspect-box__content']")
+    slot
+
 </template>
 
-<script lang="js">
+<script>
 
-import { toRefs, computed } from 'vue';
+import { computed } from 'vue';
 
-import { useClasses } from './composables/useClasses';
+import { isNumber } from './utils/isType';
+import { makeClassProps, makeSingleTypedProps } from './utils/propHelpers';
 
 export default {
   props: {
-    box: {
-      type: [Array, String],
-      default: '',
-    },
+    ...makeClassProps({
+      wrapperClasses: '',
+      contentClasses: '',
+    }),
 
-    content: {
-      type: [Array, String],
-      default: '',
-    },
-
-    aspect: {
-      type: Array,
-      default: () => [16, 9],
-      validator: (value) => value.every((x) => typeof x === 'number'),
-    },
+    ...makeSingleTypedProps({ aspectRatio: 16 / 9 }),
   },
 
   setup(props) {
-    const { box, content } = toRefs(props);
-    const boxClasses = useClasses(box, 'aspect-box');
-    const contentClasses = useClasses(content, 'aspect-box__content');
-
-    const aspectRatio = computed(() => {
-      const [x, y] = props.aspect;
-
-      return `--aspectRatio: calc((${x} / ${y}) * 100%);`;
+    const aspectStyle = computed(() => {
+      const paddingRatio = Number(props.aspectRatio);
+      return isNumber
+        ? { paddingTop: `${(1 / paddingRatio) * 100}%` }
+        : undefined;
     });
 
-    return {
-      boxClasses,
-      contentClasses,
-
-      aspectRatio,
-    };
+    return { aspectStyle };
   },
 };
 
 </script>
 
-<style scoped lang="postcss">
+<style scoped lang="pcss">
 
 .aspect-box {
   @apply relative;
 
   &:before {
     @apply w-full;
-    @apply block;
-
-    content: '';
-    padding-top: var(--aspectRatio);
+    @apply block content-[''];
   }
 
   &__content {
