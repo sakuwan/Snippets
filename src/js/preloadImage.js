@@ -1,7 +1,7 @@
 export const preloadImage = (url = '') => new Promise((resolve, reject) => {
   const cacheImage = new Image();
 
-  cacheImage.onload = () => resolve(url);
+  cacheImage.onload = () => resolve(cacheImage);
   cacheImage.onerror = () => reject(url);
 
   cacheImage.src = url;
