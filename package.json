@@ -11,15 +11,15 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/eslint-parser": "^7.14.7",
+    "@babel/core": "^7.15.0",
+    "@babel/eslint-parser": "^7.15.0",
     "@babel/eslint-plugin": "^7.14.5",
-    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-env": "^7.15.0",
     "babel-eslint": "^10.1.0",
-    "core-js": "^3.15.2",
-    "eslint": "^7.30.0",
+    "core-js": "^3.17.1",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-vue": "^7.13.0"
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-vue": "^7.17.0"
   }
 }
