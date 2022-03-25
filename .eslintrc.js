@@ -10,7 +10,7 @@ module.exports = {
 
   parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
 
     ecmaVersion: 2021,
     sourceType: 'module',
@@ -31,6 +31,10 @@ module.exports = {
   rules: {
     'no-unused-vars': [2, { args: 'all', argsIgnorePattern: '^_' }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+
+    'function-paren-newline': [
+      'error', 'consistent',
+    ],
 
     'vue/script-setup-uses-vars': 'off',
   },
