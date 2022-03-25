@@ -8,7 +8,7 @@
   "author": "wan",
   "license": "MIT",
   "dependencies": {
-    "vue": "^2.6.14"
+    "vue": "^3.2.31"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
